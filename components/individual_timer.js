@@ -12,8 +12,13 @@ const IndiTimer = () => {
     else
       alert("group already in queue!")
   }
-  const removeFirst = () => {
+  let random = false;
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  const removeFirst = async () => {
     some.shift()
+    alert("Bye bye team!")
   }
   const searchElement = () => {
     if (some.includes(search) === true)
@@ -42,7 +47,7 @@ const IndiTimer = () => {
   const withSpaces = some.join(' ');
 
   return (
-    <div>
+    <div className={"" + (random ? 'bg-red-500' : '')}>
     <div className="flex flex-row p-2">
       <div className="px-10 py-20">
         <input
@@ -60,7 +65,7 @@ const IndiTimer = () => {
           isPlaying
           duration={value*60}
           colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-          colorsTime={[7, 5, 2, 0]}
+          colorsTime={[40, 20, 10, 0]}
           onComplete={removeFirst}
         >
           {({ remainingTime }) => remainingTime}
@@ -81,7 +86,7 @@ const IndiTimer = () => {
           <div className="flex flex-row gap-1">
             <input
               className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-              type="number" placeholder="queue element" onChange={event => (Number(event.target.value) === 0 ? null : (setSearch(Number(event.target.value))))}/>
+              type="number" placeholder="search / remove" onChange={event => (Number(event.target.value) === 0 ? null : (setSearch(Number(event.target.value))))}/>
             <button className="bg-yellow-400 max-w-min p-1 rounded whitespace-nowrap" onClick={searchElement}>search</button>
             <button className="bg-yellow-400 max-w-min p-1 rounded whitespace-nowrap" onClick={removeElement}>remove</button>
           </div>
